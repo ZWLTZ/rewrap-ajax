@@ -1,6 +1,6 @@
 # javaScript
 
-	```javascript
+```javascript
 	
 	'use strict';
 	// 一、AJAX封装
