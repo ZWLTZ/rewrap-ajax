@@ -2,7 +2,6 @@
 
 	```javascriipt
 	
-		/*
 	'use strict';
 	// 一、AJAX封装
 	// 1、封裝AJAX函數
