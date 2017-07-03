@@ -1,6 +1,6 @@
 # javaScript
 
-	```javascriipt
+	```javascript
 	
 	'use strict';
 	// 一、AJAX封装
@@ -142,6 +142,5 @@
 	        }
 	    })
 	}
-
 
 ```
