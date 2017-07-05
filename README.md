@@ -133,6 +133,7 @@
 	}
 	
 	// 四、封装綁定事件
+	//？
 	function on(type,selector,callback){
 	    document.addEventListener(type,function(e){
 	        e.preventDefault();
@@ -142,5 +143,15 @@
 	        }
 	    })
 	}
+	//排除IE
+	function on(el,type,handle){
+		if(el.addEventListener){
+			el.addEventListener(type,handle,false);
+		}
+	}
+	var btn=document.getElementById("ruleBtn");
+	on(btn,'click',function(){
+        console.log(this);
+    });
 
 ```
