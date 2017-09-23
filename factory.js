@@ -144,3 +144,34 @@ function on(type,selector,callback){
         }
     })
 }
+// 五、类似JQ的 prevAll和nextAll
+HTMLElement.prototype.prevAll = function(){
+	var pe = this.parentElement;
+	var cs = pe.children;
+	var arr = [];
+	for(var i=0;i<cs.length;i++){
+		var csi = cs[i];
+		if(csi == this){
+			break;
+		}
+		arr.push(csi);
+	}
+	return arr;
+}  
+HTMLElement.prototype.nextAll = function(){
+	var pe = this.parentElement;
+	var cs = pe.children;
+	var arr = [];
+	for(var i=cs.length-1;i>=0;i--){
+		var csi = cs[i];
+		if(csi == this){
+			break;
+		}
+		arr.unshift(csi);
+	}
+	return arr;
+}  
+	var ck = function(dom){
+		console.log("prevAll=", dom.prevAll());
+		console.log("nextAll=", dom.nextAll());
+	}
