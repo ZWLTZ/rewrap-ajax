@@ -144,34 +144,66 @@ function on(type,selector,callback){
         }
     })
 }
+
+
 // 五、类似JQ的 prevAll和nextAll
 HTMLElement.prototype.prevAll = function(){
-	var pe = this.parentElement;
-	var cs = pe.children;
+	var parent = this.parentElement;
+	var children = parent.children;
 	var arr = [];
-	for(var i=0;i<cs.length;i++){
-		var csi = cs[i];
-		if(csi == this){
+	for(var i=0;i<children.length;i++){
+		var previous = children[i];
+		if(previous == this){
 			break;
 		}
-		arr.push(csi);
+		arr.push(previous);
 	}
 	return arr;
 }  
+
 HTMLElement.prototype.nextAll = function(){
-	var pe = this.parentElement;
-	var cs = pe.children;
+	var parent = this.parentElement;
+	var children = parent.children;
 	var arr = [];
-	for(var i=cs.length-1;i>=0;i--){
-		var csi = cs[i];
-		if(csi == this){
+	for(var i=children.length-1;i>=0;i--){
+		var nexts = children[i];
+		if(nexts == this){
 			break;
 		}
-		arr.unshift(csi);
+		arr.unshift(nexts);
 	}
 	return arr;
-}  
-	var ck = function(dom){
-		console.log("prevAll=", dom.prevAll());
-		console.log("nextAll=", dom.nextAll());
-	}
+} 
+
+var temp = function(dom){
+	console.log("prevAll=", dom.prevAll());
+	console.log("nextAll=", dom.nextAll());
+}
+
+
+
+
+/*
+
+
+			合并其他分支上指定的文件或者文件夹到当前分支
+
+			git checkout branchName folderName
+			git checkout branchName path
+
+			注：一下都是在主分支master上执行的命令
+			1 把dev1 分支上app下所有的文件合并到主分支master上.
+			git checkout dev app
+
+			2 部分更新，如单独合并app/css/index.css到master主分支上.
+			git checkout dev app/css/index.css
+
+			3 部分文件夹dev分支上app的js文件夹下有多个JS文件都更新了.
+			git checkout dev app/js
+
+			合并过来的文件或者文件夹在主分支master上都是默认add过的，
+			然后需要在master分支上commit,再push即可完成合并更新！
+
+
+
+*/
