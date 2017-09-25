@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>ajax</title>
+	<script type="text/javascript" src="./factory.js"></script>
+</head>
+<body>
+	<div class="all">
+		<center class="c_middle"></center>
+	</div>
+</body>
+<script>
+
+
+// 2、POST：定義請求參數
+/*var postOption = {
+  ajaxType: "POST",
+  urlStr: "v2/html/broke/get_broke_ranked_info",
+  ajaxData: {
+    "HTTP_USER_TOKEN": token,
+    "HTTP_USER_UID": pfid,
+    "anchor_pfid": anchor_pfid,
+    "broke_pfid": pfid,
+    "date": date
+  }
+}*/
+
+// wajax.js
+wrap.service('ajax',function ajax(){
+
+			//4、GET：定义请求参数
+			var getOption = {
+			  ajaxType: "GET",
+			  urlStr: "v2/html/broke/get_broke_ranked_info",
+			  ajaxData: null
+			};
+
+			var postOption = {
+		  ajaxType: "POST",
+		  urlStr: "v2/html/broke/get_broke_ranked_info",
+		  ajaxData: {
+		    "HTTP_USER_TOKEN": token,
+		    "HTTP_USER_UID": pfid,
+		    "anchor_pfid": anchor_pfid,
+		    "broke_pfid": pfid,
+		    "date": date
+		  }
+		 };
+
+
+		 // 支持大小写
+			this.URL = getOption.urlStr;
+			this.TYPE = getOption.ajaxType;
+			this.SUCCESS = function(data){
+				 var val = data;
+					console.log(val)
+			};
+			this.ERROR = function(err){
+				 console.log(err)
+			};
+			
+});
+
+
+</script>
+</html>
+
+
+<!-- 
+https://blog.bccn.net/pengju114/8472
+
+
+ -->
