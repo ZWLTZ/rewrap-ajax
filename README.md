@@ -37,14 +37,14 @@ wrap.service('ajax',function () {
 	    } else {
 	        xhrRequest = new ActiveXObject('Microsoft.XMLHTTP')
 	    }
-		var str=null;
+		var str="";
 		xhrRequest.open(type,url,true);
 		if(type==="POST"&&data!=null){
 			xhrRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 			for(var key in data){
 				str+='&'+key+'='+data[key];
-				str=str.slice(1);
 			}
+			str=str.slice(1);
 		}
 		xhrRequest.onreadystatechange=function(){
 			if(xhrRequest.readyState==4){
