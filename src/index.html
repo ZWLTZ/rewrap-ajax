@@ -14,7 +14,6 @@
 </body>
 <script>
 
-
 // 2、POST：定義請求參數
 /*var postOption = {
   ajaxType: "POST",
@@ -28,42 +27,44 @@
   }
 }*/
 
+
 // wajax.js
-wrap.service('ajax',function ajax(){
+wrap.service('ajax',
+function ajax() {
 
-			//4、GET：定义请求参数
-			var getOption = {
-			  ajaxType: "GET",
-			  urlStr: "v2/html/broke/get_broke_ranked_info",
-			  data: null
-			};
+    //4、GET：定义请求参数
+    var getOption = {
+        ajaxType: "GET",
+        urlStr: "v2/html/broke/get_broke_ranked_info",
+        data: null
+    };
 
-			var postOption = {
-		  ajaxType: "POST",
-		  urlStr: "v2/html/broke/get_broke_ranked_info",
-		  data: {
-		    "HTTP_USER_TOKEN": 'token',
-		    "HTTP_USER_UID": 12,
-		    "anchor_pfid": 1,
-		    "broke_pfid": 0,
-		    "date": {a:1}
-		  }
-		 };
+    var postOption = {
+        ajaxType: "POST",
+        urlStr: "v2/html/broke/get_broke_ranked_info",
+        data: {
+            "HTTP_USER_TOKEN": 'token',
+            "HTTP_USER_UID": 12,
+            "anchor_pfid": 1,
+            "broke_pfid": 0,
+            "date": {
+                a: 1
+            }
+        }
+    };
 
+    // 支持大小写
+    this.URL = getOption.urlStr;
+    this.TYPE = getOption.ajaxType;
+    this.SUCCESS = function(data) {
+        var val = data;
+        console.log(val)
+    };
+    this.ERROR = function(err) {
+        console.log(err)
+    };
 
-		 // 支持大小写
-			this.URL = getOption.urlStr;
-			this.TYPE = getOption.ajaxType;
-			this.SUCCESS = function(data){
-				 var val = data;
-					console.log(val)
-			};
-			this.ERROR = function(err){
-				 console.log(err)
-			};
-			
 });
-
 
 </script>
 </html>
@@ -71,6 +72,4 @@ wrap.service('ajax',function ajax(){
 
 <!-- 
 https://blog.bccn.net/pengju114/8472
-
-
  -->
