@@ -180,6 +180,14 @@ var temp = function(dom){
 	console.log("nextAll=", dom.nextAll());
 }
 
+// 六、重置form 表单的action
+
+function resetFormActionDomian(id,domain,urlStr){
+	document.getElementById(id).action=domain+urlStr;
+}
+
+
+
 
 
 
