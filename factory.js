@@ -186,7 +186,26 @@ function resetFormActionDomian(id,domain,urlStr){
 	document.getElementById(id).action=domain+urlStr;
 }
 
+// 七、获取URL参数
+// 6、获取url参数
+function getUrlParameter(strParame){
+	var args = new Object( );
+	var query = location.search.substring(1);
+	var pairs = query.split("&");
+	for(var i = 0; i < pairs.length; i++) {
+		var pos = pairs[i].indexOf('=');
+		if (pos == -1) continue;
+		var argname = pairs[i].substring(0,pos);
+		var value = pairs[i].substring(pos+1);
+		value = decodeURIComponent(value);
+		args[argname] = value;
+	}
+	return args[strParame];
+}
 
+// "dsaldlas.csadja.com/fhlfh.html?key=10&id=hello";
+var key=getUrlParameter("key");//10
+var id=getUrlParameter("hello");//10
 
 
 
