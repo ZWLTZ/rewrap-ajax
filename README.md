@@ -45,7 +45,11 @@ wrap.service('ajax',function () {
     this.type = "GET";
     this.url = "v2/html/broke/get_broke_ranked_info";
     this.success = function(data) {
-        console.log(data)
+        var val = data
+        var getOutputData = val[0].result[0].message
+        
+        if(typeof getOutputData === 'string') getOutputData
+        else getOutputData = '查询成功 未获得数据'
 
         $scope.$props.$el($scope.$props.$scope.state.class).add('success_message')
         $scope.$props.$el($scope.$props.$scope.state.class).push(getOutputData)
