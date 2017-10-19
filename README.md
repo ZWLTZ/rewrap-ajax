@@ -1,5 +1,71 @@
 # JavaScript AJAX
 
+## Update Usage(0.12 V)
+支持管道(props)和公共方法(methods)作为指针进行调用
+
+
+```js
+// props
+this.props = function (){
+    return {
+        state: [{static:'.error',class:'.success',tip:'.loadingMessage'}]
+    }
+}
+state内部 '.error'和'.success' '.loadingMessage‘ 所有节点可通过管道流出
+```
+
+```js
+// methods
+// 如下节点'.error' '.loadingMessage' 存放在数组里面 [scope.state.class,scope.state.tip]通过作用域调用
+
+this.methods = function  () {
+    var scope = this.$scope
+
+        addClass: function (scope){
+            this.el([scope.state.class,scope.state.static]).add()
+        },
+        removeClass: function (scope){
+            this.el([scope.state.class,scope.state.tip]).remove()
+        },
+        pushHtml: function (scope){
+            this.el([scope.state.static,scope.state.class]).push()
+        },
+        hasClass: function (scope){
+            this.el(scope.state.content).has()
+        }
+    }
+}
+
+```
+
+
+```js
+// wajax.js
+wrap.service('ajax',function () {
+    this.type = "GET";
+    this.url = "v2/html/broke/get_broke_ranked_info";
+    this.success = function(data) {
+        console.log(data)
+
+        $scope.$props.$el($scope.$props.$scope.state.class).add('success_message')
+        $scope.$props.$el($scope.$props.$scope.state.class).push(getOutputData)
+        $scope.$props.$el($scope.$props.$scope.state.tip).remove('show')
+    };
+    this.error = function(err) {
+        console.log(err)
+    };
+});
+
+```
+
+API方法：
+this.props
+this.methods
+this.type
+this.url
+this.success
+this.error
+
 
 ## Update Usage(0.11 V)
 As an ajax service;

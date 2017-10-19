@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+	<meta name="format-detection" content="telephone=no" />
+	<title>ajax</title>
+	<script type="text/javascript" src="./../lib/wrap.js"></script>
+    <style type="text/css">
+    .success_message{
+        background-color: RGB(0,0,205)
+    }
+    .error_message{
+        background-color: RGB(255,105,180)
+    }
+    .error_message,.success_message{
+        color: #fff
+    }
+    .box{
+        padding: 10px 50px
+    }
+    .message{
+        padding-top: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #ccc
+    }
+    .box span {
+        padding-left: 50px
+    }
+    .stup{
+        padding: 50px;
+        text-align: center;
+        margin: 0 auto
+    }
+    .loadingMessage,.hide{
+        display: none;
+    }
+    .show{
+        display: inline-block;
+        background-color: #ccc
+    }
+    </style>
+</head>
+<body>
+	<div class="all">
+		<center class="c_middle">ajax service</center>
+        <div id="main">
+            <header class="box"><strong>测试ajax服务:</strong></header>
+
+            <div class="box message">请求成功success信息 :
+                <span class="success">如果调用成立 背景颜色为腥蓝色</span>
+            </div>
+            <div class="box message">请求错误error信息 :
+                <span class="error">如果调用不成功 背景颜色为粉红色</span>
+            </div>
+        </div>
+        <center>
+             <em class="loadingMessage">加载中...</em>
+        </center>
+        <div class="stup">
+            <button class="loading-ajax">开始使用ajax service加载数据</button>
+        </div>
+	</div>
+</body>
+<script>
+
+
+document.querySelector('.loading-ajax').addEventListener('click',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    var tips = document.querySelector('.loadingMessage')
+    tips.className+=" "+'show';
+
+    wrap.service('ajax', ajax_service)
+})
+
+// wajax.js
+var ajax_service = function ajax() {
+
+    // 定义请求参数
+    var getOption = {
+        ajaxType: "GET",
+        urlStr: "rewrap/query.do",
+        data: null
+    }
+
+    // 管道class类的方法 同时获得methods内部的指定class方法
+    // 然后在其他的方法(例success)内部通过props管道注册的方法调用class的内部元素的的属性
+    // 通过调用方法内部的属性 即可执行class类的方法 
+    // 注意 此class类的element元素必须是被定义过的元素 否则不可调用
+    // 也就是说 只能调用父元素的this绑定过的元素
+    this.props = function (){
+        return {
+            state: [{static:'.error',class:'.success',tip:'.loadingMessage'}]
+        }
+    }
+
+    // 绑定方法
+    // 为指定的节点绑定一个或多个方法
+    // 如下
+    // .all节点具有 add 和 remove 方法 ---表示追加指定class 与 移除指定class
+    // .header节点具有 add 方法  ---表示追加指定class
+    // .content节点具有 push 和 has 方法  ---表示追加HTML 与 是否含有指定class
+    // 修改获取策略 使用单一方法对于多个字符串原则
+    // 如下方法存放在数组里面 [scope.state.class,scope.state.tip]
+    this.methods = function  () {
+        var scope = this.$scope
+
+
+        return {
+            addClass: function (scope){
+                this.el([scope.state.class,scope.state.static]).add()
+            },
+            removeClass: function (scope){
+                this.el([scope.state.class,scope.state.tip]).remove()
+            },
+            pushHtml: function (scope){
+                this.el([scope.state.static,scope.state.class]).push()
+            },
+            hasClass: function (scope){
+                this.el(scope.state.content).has()
+            }
+        }
+    }
+
+    // 支持大小写
+    this.URL = getOption.urlStr
+    this.TYPE = getOption.ajaxType
+    this.SUCCESS = function( $scope, data ) {
+        var val = data
+        var getOutputData = val[0].result[0].message
+        
+        if(typeof getOutputData === 'string') getOutputData
+        else getOutputData = '查询成功 未获得数据'
+
+        $scope.$props.$el($scope.$props.$scope.state.class).add('success_message')
+        $scope.$props.$el($scope.$props.$scope.state.class).push(getOutputData)
+        $scope.$props.$el($scope.$props.$scope.state.tip).remove('show')
+    }
+    this.ERROR = function( $scope, err ) {
+        $scope.$props.$el($scope.$props.$scope.state.static).add('error_message')
+        $scope.$props.$el($scope.$props.$scope.state.static).push('调用出错 error')
+        $scope.$props.$el($scope.$props.$scope.state.tip).remove('show')
+        console.log(err)
+    }
+
+}
+
+
+</script>
+</html>
+
+
+<!-- 
+https://blog.bccn.net/pengju114/8472
+ -->
