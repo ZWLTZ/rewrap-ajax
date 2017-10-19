@@ -1,79 +1,52 @@
 # JavaScript AJAX
 
 ## Update Usage(0.12 V)
-支持管道(props)和公共方法(methods)作为指针进行调用
+ajax服务支持管道(`props`)和公共方法(`methods`)作为指针进行调用!
 
-
-```js
-// props
-this.props = function (){
-    return {
-        state: [{static:'.error',class:'.success',tip:'.loadingMessage'}]
-    }
-}
-state内部 '.error'和'.success' '.loadingMessage' 所有节点可通过管道流出
-```
-
-```js
-// methods
-// 如下节点'.error' '.loadingMessage' 存放在数组里面 [scope.state.class,scope.state.tip]通过作用域调用
-
-this.methods = function  () {
-    var scope = this.$scope
-
-        addClass: function (scope){
-            this.el([scope.state.class,scope.state.static]).add()
-        },
-        removeClass: function (scope){
-            this.el([scope.state.class,scope.state.tip]).remove()
-        },
-        pushHtml: function (scope){
-            this.el([scope.state.static,scope.state.class]).push()
-        },
-        hasClass: function (scope){
-            this.el(scope.state.content).has()
+```html
+<html><body><style>.color{color: #FF0000}.font{font-size: 38px}</style><div class='main size'>hello world!</div>
+<script src="../lib/wrap.js"></script>
+<script>
+wrap.service('ajax', function ajax() {
+    // props `state`内部 '.error'和'.success' '.loadingMessage' 所有节点可通过管道流出，在此过程可使用`$scope`获得
+    this.props = function (){
+        return {
+            state: [{static:'.size',class:'.main'}]
         }
     }
-}
-
-```
-
-
-```js
-// wajax.js
-wrap.service('ajax',function () {
-    this.type = "GET";
-    this.url = "v2/html/broke/get_broke_ranked_info";
-    this.success = function(data) {
+    // methods 如下节点'.error' '.loadingMessage' 存放在数组里面 `[scope.state.class,scope.state.tip]` 通过作用域调用
+    this.methods = function  () {
+        var scope = this.$scope
+        return {
+            addClass: function (scope){
+                this.el([scope.state.static,scope.state.class]).add()
+            }
+        }
+    }
+    this.URL = "query.do"
+    this.TYPE = "GET"
+    this.SUCCESS = function( $scope, data ) {
         var val = data
-        var getOutputData = val[0].result[0].message
-        
-        if(typeof getOutputData === 'string') getOutputData
-        else getOutputData = '查询成功 未获得数据'
-
-        $scope.$props.$el($scope.$props.$scope.state.class).add('success_message')
-        $scope.$props.$el($scope.$props.$scope.state.class).push(getOutputData)
-        $scope.$props.$el($scope.$props.$scope.state.tip).remove('show')
-    };
-    this.error = function(err) {
-        console.log(err)
-    };
-});
-
+    }
+    // 你可使用作用域`$scope`方式调用`el`元素绑定的私有方法(如`add()`, `remove()`, `push()`), 因私有方法里含有底层封装的方法
+    this.ERROR = function( $scope, err ) {
+        alert(err)
+        $scope.$props.$el($scope.$props.$scope.state.static).add('color')
+        $scope.$props.$el($scope.$props.$scope.state.class).add('font')
+    }
+})
+</script>
+</body></html>
 ```
 
-API方法：
-.props
+### API方法：
 
-.methods
-
-.type
-
-.url
-
-.success
-
-.error
+ - `'.props'`
+ - `'.methods'`
+ - `'.type'`
+ - `'.url'`
+ - `'.success'`
+ - `'.error'`
 
 
 ## Update Usage(0.11 V)
