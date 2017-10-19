@@ -43,6 +43,12 @@ wrap.service('ajax', function ajax() {
 
  - `'.props'`
  - `'.methods'`
+		 - `'.addClass'`
+		 - `'.hasClass'`
+			- `'.pushHtml'`
+			- `'.removeClass'`
+			- `'.getEleId'`
+			- `'.getSelector'`
  - `'.type'`
  - `'.url'`
  - `'.success'`
