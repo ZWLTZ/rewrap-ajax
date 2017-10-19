@@ -11,7 +11,7 @@ this.props = function (){
         state: [{static:'.error',class:'.success',tip:'.loadingMessage'}]
     }
 }
-state内部 '.error'和'.success' '.loadingMessage‘ 所有节点可通过管道流出
+state内部 '.error'和'.success' '.loadingMessage' 所有节点可通过管道流出
 ```
 
 ```js
@@ -59,12 +59,17 @@ wrap.service('ajax',function () {
 ```
 
 API方法：
-this.props
-this.methods
-this.type
-this.url
-this.success
-this.error
+.props
+
+.methods
+
+.type
+
+.url
+
+.success
+
+.error
 
 
 ## Update Usage(0.11 V)
