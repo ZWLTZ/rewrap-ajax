@@ -12,7 +12,7 @@ this.props = function (){
 }
 ```
 
-// methods 如下节点'.error' '.loadingMessage' 存放在数组里面 `[scope.state.class,scope.state.tip]` 通过作用域调用
+methods 如下节点'.error' '.loadingMessage' 存放在数组里面 `[scope.state.class,scope.state.tip]` 通过作用域调用
 ```js
 this.methods = function  () {
     var scope = this.$scope
