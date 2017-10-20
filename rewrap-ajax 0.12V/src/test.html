@@ -137,9 +137,9 @@ var ajax_service = function ajax() {
 
         suc = [{name:'百度',val:'0'},{name:'淘宝',val:'0'},{name:'腾讯',val:'0'}]
 
-        $scope.$props( {suc} ).$el($scope.$props.define.class).push('<em>{{' +props.$data.suc.name+ '}}<em>')
-        $scope.$props().$el($scope.$props.define.class).add('success_message')
-        $scope.$props().$el($scope.$props.define.tip).remove('show')
+        $scope.$props( {suc} ).$el($scope.$props.$scope.define.class).push('<em>{{' +props.$data.suc.name+ '}}<em>')
+        $scope.$props().$el($scope.$props.$scope.define.class).add('success_message')
+        $scope.$props().$el($scope.$props.$scope.define.tip).remove('show')
     }
     this.ERROR = function( $scope, err ) {
         var props = $scope.$props
