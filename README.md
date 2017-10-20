@@ -79,7 +79,6 @@ wrap.service('ajax', function ajax() {
  - `'.url'`
  - `'.success'`
  - `'.error'`
-目前$scope是作为方法的第一个参数流进来，那么元素的管道为$scope.$props.$scope，获得元素方法的管道为$scope.$props.$el()，元素调用API的方法为：$scope.$props.$el().add()，$scope.$props.$el().remove()，$scope.$props.$el().push()等等。
 
 ## Update Usage(0.11 V)
 As an ajax service;
