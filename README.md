@@ -12,7 +12,7 @@ this.props = function (){
 }
 ```
 
-methods return返回的公用API方法的内部`this.el`方法接收`props`管道返回的属性，如果是单个state属性直接使用`this.el($scope.state.static,$scope.state.class)`保存，如果是多个state属性，请使用[]数组 `this.el([$scope.state.static,$scope.state.class])` 保存，后面的`add()`方法为调用公用API方法.
+methods return返回的公用API方法的内部`this.el`方法接收`props`管道返回的属性，如果是单个state属性直接使用`this.el($scope.state.static)`保存，如果是多个state属性使用[]数组 `this.el([$scope.state.static,$scope.state.class])` 保存，后面的`add()`方法为调用公用API方法.
 ```js
 this.methods = function  () {
     var $scope = this.$scope
@@ -69,18 +69,17 @@ wrap.service('ajax', function ajax() {
 
  - `'.props'`
  - `'.methods'`
- 
-				- `'.addClass'`
-				- `'.hasClass'`
-				- `'.pushHtml'`
-				- `'.removeClass'`
-				- `'.getEleId'`
-				- `'.getSelector'`
+			- `'.addClass'`
+			- `'.hasClass'`
+			- `'.pushHtml'`
+			- `'.removeClass'`
+			- `'.getEleId'`
+			- `'.getSelector'`
  - `'.type'`
  - `'.url'`
  - `'.success'`
  - `'.error'`
-
+目前$scope是作为方法的第一个参数流进来，那么元素的管道为$scope.$props.$scope，获得元素方法的管道为$scope.$props.$el()，元素调用API的方法为：$scope.$props.$el().add()，$scope.$props.$el().remove()，$scope.$props.$el().push()等等。
 
 ## Update Usage(0.11 V)
 As an ajax service;
