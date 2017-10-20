@@ -3,7 +3,7 @@
 ## Update Usage(0.12 V)
 ajax服务支持管道(`props`)和公共方法(`methods`)作为指针进行调用!
 
-props `state`内部 '.error'和'.success' '.loadingMessage' 所有节点可通过管道流出，在此过程可使用`$scope`获得
+props `state`内部 `'.size'和'.main'` 节点可通过管道流出，在`this.methods`内部使用`$scope`获得`this.props`返回的属性.
 ```js
 this.props = function (){
     return {
@@ -12,19 +12,19 @@ this.props = function (){
 }
 ```
 
-methods 如下节点'.error' '.loadingMessage' 存放在数组里面 `[scope.state.class,scope.state.tip]` 通过作用域调用
+methods return返回的公用API方法的内部`this.el`方法接收`props`管道返回的属性，如果是单个state属性直接使用`this.el($scope.state.static,$scope.state.class)`保存，如果是多个state属性，请使用[]数组 `this.el([$scope.state.static,$scope.state.class])` 保存，后面的`add()`方法为调用公用API方法.
 ```js
 this.methods = function  () {
-    var scope = this.$scope
+    var $scope = this.$scope
     return {
-        addClass: function (scope){
-            this.el([scope.state.static,scope.state.class]).add()
+        addClass: function ($scope){
+            this.el([$scope.state.static,$scope.state.class]).add()
         }
     }
 }
 ```
 
-你可使用作用域`$scope`方式调用`el`元素绑定的私有方法(如`add()`, `remove()`, `push()`), 因私有方法里含有底层封装的方法
+外部`this.` 你可使用作用域`$scope`的方式调用`el`元素绑定的私有方法(如`add()`, `remove()`, `push()`), 因私有方法是调用底层方法.
 ```js
 function( $scope ) {
     alert(err)
@@ -69,12 +69,13 @@ wrap.service('ajax', function ajax() {
 
  - `'.props'`
  - `'.methods'`
-		- `'.addClass'`
-		- `'.hasClass'`
-		- `'.pushHtml'`
-		- `'.removeClass'`
-		- `'.getEleId'`
-		- `'.getSelector'`
+ 
+				- `'.addClass'`
+				- `'.hasClass'`
+				- `'.pushHtml'`
+				- `'.removeClass'`
+				- `'.getEleId'`
+				- `'.getSelector'`
  - `'.type'`
  - `'.url'`
  - `'.success'`
