@@ -25,18 +25,32 @@ this.methods = function  () {
 ```
 
 外部`this.` 你可使用作用域`$scope`的方式调用`el`元素绑定的私有方法(如`add()`, `remove()`, `push()`), 因私有方法是调用底层方法.
+
+
+支持二种类型：
+调用json数据的格式, 通过`$props`方法传入一个args, 于是在后面的`push`方法调用到数组对内部的数据.比如：
+`var sub = [{name:'yes'}]`方法`.props({sub}) `, 之后调用 `.push('<em>{{'+ $scope.$props.$data.sub.name +'}}</em>')`方法
+```js
+$scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>-')
+```
+另一种props不传入json格式, 调用`push`方法直接推入字符串`.push('<div>123456</div>')`
+```js
+$scope.$props().$el($scope.$props.$scope.state.static).push('<div>123456<div>-')
+```
+
 ```js
 function( $scope ) {
     alert(err)
-    $scope.$props.$el($scope.$props.$scope.state.static).add('color')
-    $scope.$props.$el($scope.$props.$scope.state.class).add('font')
+    $scope.$props().$el($scope.$props.$scope.state.static).add('color')
+    $scope.$props().$el($scope.$props.$scope.state.class).add('font')
+    $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>-')
 }
 ```
 
-完整的示例：
+完整的示例(你可以尝试执行下面的脚本)：
 ```html
 <html><body><style>.color{color: #FF0000}.font{font-size: 38px}</style><div class='main size'>hello world!</div>
-<script src="../lib/wrap.js"></script>
+<script src="https://koringz.github.io/rewrap/rewarper%200.12V/lib/wrap.js"></script>
 <script>
 wrap.service('ajax', function ajax() {
     this.props = function (){
@@ -45,6 +59,9 @@ wrap.service('ajax', function ajax() {
     this.methods = function  () {
         var scope = this.$scope
         return {
+            pushHtml: function (scope){
+                this.el(scope.state.static).push()
+            },
             addClass: function (scope){
                 this.el([scope.state.static,scope.state.class]).add()
             }
@@ -54,16 +71,21 @@ wrap.service('ajax', function ajax() {
     this.TYPE = "GET"
     this.SUCCESS = function( $scope, data ) {
         alert(data)
+        var suc = [{name:'百度',val:'0'},{name:'淘宝',val:'0'},{name:'腾讯',val:'0'}]
+        $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>')
     }
     this.ERROR = function( $scope, err ) {
         alert(err)
-        $scope.$props.$el($scope.$props.$scope.state.static).add('color')
-        $scope.$props.$el($scope.$props.$scope.state.class).add('font')
+        $scope.$props().$el($scope.$props.$scope.state.static).add('color')
+        $scope.$props().$el($scope.$props.$scope.state.class).add('font')
+        $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>')
     }
 })
 </script>
 </body></html>
 ```
+
+演示DENO : [REWRAP-AJAX TEST](https://koringz.github.io/rewrap/rewarper%200.12V/src/test.html)
 
 ### API方法：
 

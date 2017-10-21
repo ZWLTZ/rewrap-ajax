@@ -304,6 +304,7 @@ function parseData (options){
 
     return (str.length > 1) && str
   }
+  else return options
 }
 
 
@@ -786,6 +787,9 @@ defaults.wrap.fn = function bindObjectGroup(opt,fallback){
   var bindCall = new defaults.wrap(true)
   var empty = []
 
+  // on the first, insert array to save
+  bindCall.common.push(bindCall)
+
   if(typeof opt === 'string'){
 
     if(opt === 'ajax'){
@@ -800,10 +804,10 @@ defaults.wrap.fn = function bindObjectGroup(opt,fallback){
   if(typeof fallback === 'function'){
 
     if(empty.length) empty.length = 0
-    else empty.push(fallback)
+    empty.push(fallback)
 
     defaults.wrap.chain = function (options){
-      return [(new empty[0])]
+      return [(new (empty.shift()))]
     }
 
   }
@@ -837,8 +841,6 @@ defaults.wrap.fn = function bindObjectGroup(opt,fallback){
   var getProps =  bindCall.getProps('props')
   var getMethods =  bindCall.getMethods('methods')
 
-  // on the first, insert array to save
-  bindCall.common.push(bindCall)
   defaults.wrap.common = bindCall.common
 
   // all resource be invoked on the pool
