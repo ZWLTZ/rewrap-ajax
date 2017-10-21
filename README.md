@@ -37,7 +37,7 @@ $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$sc
 ```js
 $scope.$props().$el($scope.$props.$scope.state.static).push('<div>123456<div>-')
 ```
-
+合并如下：
 ```js
 function( $scope ) {
     alert(err)
@@ -78,7 +78,7 @@ wrap.service('ajax', function ajax() {
         alert(err)
         $scope.$props().$el($scope.$props.$scope.state.static).add('color')
         $scope.$props().$el($scope.$props.$scope.state.class).add('font')
-        $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>')
+        $scope.$props().$el($scope.$props.$scope.state.static).push('<em>调用出错<em>')
     }
 })
 </script>
