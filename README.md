@@ -3,7 +3,8 @@
 ## Update Usage(0.12 V)
 使用管道(`props`)和公共方法(`methods`)作为指针进行调用!
 
-this.props 的`state`内部 `'.size'和'.main'` 节点可通过管道流出，在`this.methods`内部使用`$scope`获得`this.props`返回的属性.
+#### this.props 
+ `state`内部 `'.size'和'.main'` 节点可通过管道流出，在`this.methods`内部使用`$scope`获得`this.props`返回的属性.
 ```js
 this.props = function (){
     return {
@@ -12,9 +13,13 @@ this.props = function (){
 }
 ```
 
-this.methods的返回对象为公用API方法, 然而`this.el`方法接收`props`管道的属性!
+#### this.methods
+ 返回对象为公用API方法, 然而`this.el`方法接收`props`管道的属性!
+
  如果是单个state属性直接保存, 如：`this.el($scope.state.static)`;
+
  如果是多个state属性使用[]数组保存, 如： `this.el([$scope.state.static,$scope.state.class])`;
+
  this.el().后面的`add()`方法为调用公用API方法addClass.
 ```js
 this.methods = function  () {
@@ -27,16 +32,20 @@ this.methods = function  () {
 }
 ```
 
+#### 外部方法(如this.success)
 然而外部的方法使用作用域`$scope`的方式调用`el`元素绑定的私有方法(如`add()`, `remove()`, `push()`)
 
 添加解析数据类型：
 调用json数据的格式, 通过`$props`方法传入一个args, 于是在后面的`push`方法调用到数组对内部的数据.
+
 比如：
 ```js
 var sub = [{name:'yes'},{num:'123'}]
 $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>-')
 ```
+
 另一种props不传入json格式, 调用`push`方法直接推入字符串`.push('<div>123456</div>')`.
+
 比如：
 ```js
 $scope.$props().$el($scope.$props.$scope.state.static).push('<div>123456<div>-')
@@ -44,13 +53,13 @@ $scope.$props().$el($scope.$props.$scope.state.static).push('<div>123456<div>-')
 合并如下：
 ```js
 function( $scope ) {
-				var sub = [{name:'yes'}]
+    var sub = [{name:'yes'},{num:'123'}]
     $scope.$props( ).$el($scope.$props.$scope.state.static).push('<div>123456<div>-')
     $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>-')
 }
 ```
 
-完整的示例(你可以尝试执行下面的脚本)：
+#### 完整的示例(你可以尝试执行下面的脚本)：
 ```html
 <html><body><style>.color{color: #FF0000}.font{font-size: 38px}</style><div class='main size'>hello world!</div>
 <script src="https://koringz.github.io/rewrap/rewarper%200.12V/lib/wrap.js"></script>
@@ -90,7 +99,7 @@ wrap.service('ajax', function ajax() {
 
 演示DENO : [REWRAP-AJAX TEST](https://koringz.github.io/rewrap/rewarper%200.12V/src/test.html)
 
-### API方法：
+#### API方法：
 
  - `'.props'`
  - `'.methods'`
