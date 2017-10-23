@@ -40,7 +40,7 @@ this.methods = function  () {
 
 比如：
 ```js
-var sub = [{name:'yes'},{num:'123'}]
+var suc = [{name:'yes'},{num:'123'}]
 $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>-')
 ```
 
@@ -53,7 +53,7 @@ $scope.$props().$el($scope.$props.$scope.state.static).push('<div>123456<div>-')
 合并如下：
 ```js
 function( $scope ) {
-    var sub = [{name:'yes'},{num:'123'}]
+    var suc = [{name:'yes'},{num:'123'}]
     $scope.$props( ).$el($scope.$props.$scope.state.static).push('<div>123456<div>-')
     $scope.$props( {suc} ).$el($scope.$props.$scope.state.static).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>-')
 }
@@ -97,22 +97,25 @@ wrap.service('ajax', function ajax() {
 </body></html>
 ```
 
-演示DENO : [REWRAP-AJAX TEST](https://koringz.github.io/rewrap/rewarper%200.12V/src/test.html)
+#### 演示DENO : [REWRAP-AJAX TEST](https://koringz.github.io/rewrap/rewarper%200.12V/src/test.html)
+
+#### Blog简介 : [REWRAP-AJAX TEST](http://www.cnblogs.com/hao5599/p/7695902.html)
 
 #### API方法：
 
  - `'.props'`
  - `'.methods'`
-	- `'.addClass'`
-	- `'.hasClass'`
-	- `'.pushHtml'`
-	- `'.removeClass'`
-	- `'.getEleId'`
-	- `'.getSelector'`
-	- `'.nextAll'`
-	- `'.prevAll'`
+ - `'.addClass'`
+ - `'.hasClass'`
+ - `'.pushHtml'`
+ - `'.removeClass'`
+ - `'.getEleId'`
+ - `'.getSelector'`
+ - `'.nextAll'`
+ - `'.prevAll'`
  - `'.type'`
  - `'.url'`
+ - `'.data'`
  - `'.success'`
  - `'.error'`
 
