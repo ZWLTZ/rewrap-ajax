@@ -137,18 +137,22 @@ var ajax_service = function ajax() {
 
         suc = [{name:'百度',val:'0'},{name:'淘宝',val:'0'},{name:'腾讯',val:'0'}]
 
-        $scope.$props( {suc} ).$el($scope.$props.$scope.define.class).push('<em>{{' +$scope.$props.$data.suc.name+ '}}<em>')
-        $scope.$props().$el($scope.$props.$scope.define.class).add('success_message')
-        $scope.$props().$el($scope.$props.$scope.define.tip).remove('show')
+        var scope = $scope.$props.$scope
+        var props = $scope.$props
+        
+        $scope.$props( {suc} ).$el(scope.define.class).push('<em>{{' +props.$data.suc.name+ '}}<em>')
+        $scope.$props().$el(scope.define.class).add('success_message')
+        $scope.$props().$el(scope.define.tip).remove('show')
     }
     this.ERROR = function( $scope, err ) {
+        var scope = $scope.$props.$scope
         var props = $scope.$props
 
         err = [{name:'iphone',val:'0'},{name:'xiao mi',val:'0'},{name:'huawei',val:'0'}]
 
-        props( {err} ).$el(props.$scope.define.static).push('<span>{{' +props.$data.err.name+ '}}<span>,')
-        props().$el(props.$scope.define.static).add('show')
-        props().$el(props.$scope.define.tip).remove('show')
+        props( {err} ).$el(scope.define.static).push('<span>{{' +props.$data.err.name+ '}}<span>,')
+        props().$el(scope.define.static).add('show')
+        props().$el(scope.define.tip).remove('show')
         console.log(err)
     }
 }
